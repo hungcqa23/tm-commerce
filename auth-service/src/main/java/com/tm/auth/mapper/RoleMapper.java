@@ -3,9 +3,9 @@ package com.tm.auth.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.tm.auth.dto.request.RoleRequest;
-import com.tm.auth.dto.response.RoleResponse;
-import com.tm.auth.entity.Role;
+import com.tm.auth.dtos.request.RoleRequest;
+import com.tm.auth.dtos.response.RoleResponse;
+import com.tm.auth.entities.Role;
 
 @Mapper(componentModel = "spring")
 public interface RoleMapper {

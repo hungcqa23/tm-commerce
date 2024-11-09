@@ -4,10 +4,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.tm.auth.dto.request.UserCreationRequest;
-import com.tm.auth.dto.request.UserUpdateRequest;
-import com.tm.auth.dto.response.UserResponse;
-import com.tm.auth.entity.User;
+import com.tm.auth.dtos.request.UserCreationRequest;
+import com.tm.auth.dtos.request.UserUpdateRequest;
+import com.tm.auth.dtos.response.UserResponse;
+import com.tm.auth.entities.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
