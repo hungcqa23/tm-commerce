@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
-
     private static final String MIN_ATTRIBUTE = "min";
 
     @ExceptionHandler(value = Exception.class)
@@ -26,6 +25,7 @@ public class GlobalExceptionHandler {
         log.error("Exception: ", exception);
         ApiResponse apiResponse = new ApiResponse();
 
+        apiResponse.setStatus("error");
         apiResponse.setCode(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode());
         apiResponse.setMessage(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage());
 
@@ -37,6 +37,7 @@ public class GlobalExceptionHandler {
         ErrorCode errorCode = exception.getErrorCode();
         ApiResponse apiResponse = new ApiResponse();
 
+        apiResponse.setStatus("error");
         apiResponse.setCode(errorCode.getCode());
         apiResponse.setMessage(errorCode.getMessage());
 
@@ -76,6 +77,7 @@ public class GlobalExceptionHandler {
 
         ApiResponse apiResponse = new ApiResponse();
 
+        apiResponse.setStatus("error");
         apiResponse.setCode(errorCode.getCode());
         apiResponse.setMessage(
                 Objects.nonNull(attributes)
