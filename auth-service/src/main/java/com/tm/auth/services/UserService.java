@@ -48,8 +48,17 @@ public class UserService {
 
         user.setRoles(roles);
         user = userRepository.save(user);
+        
+        // Create timestamp (current time in this example)
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        
+        // Use the username or userId as the accountId
+        String username = user.getUsername();
+        
+        // Create the unique message key
+        String messageKey = timestamp + "-" + username;
         // Publish message to kafka
-        kafkaTemplate.send("onboard-successful", "Welcome our new member " + user.getUsername() );
+        kafkaTemplate.send("onboard-successful", messageKey);
 
         return userMapper.toUserResponse(user);
     }

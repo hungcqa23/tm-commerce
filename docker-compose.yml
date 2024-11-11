@@ -1,8 +1,18 @@
 name: tm-commerce
 services:
+  postgres:
+    image: 'postgres:13'
+    container_name: tm-postgres
+    hostname: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
   kafka:
     image: 'bitnami/kafka:3.8.1'
-    container_name: kafka
+    container_name: tm-kafka
     hostname: kafka
     ports:
       - '9094:9094'
@@ -14,3 +24,12 @@ services:
       - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+
+  redis:
+    image: 'redis:7.2.4'
+    container_name: tm-redis
+    hostname: redis
+    ports:
+      - '6379:6379'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes

@@ -1,4 +1,4 @@
-package com.hungcqa23.notification.repository.httpclient;
+package com.hungcqa23.notification.repositories.httpclient;
 
 import com.hungcqa23.notification.dto.request.EmailRequest;
 import com.hungcqa23.notification.dto.response.EmailResponse;

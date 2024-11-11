@@ -6,7 +6,7 @@ import com.hungcqa23.notification.dto.request.Sender;
 import com.hungcqa23.notification.dto.response.EmailResponse;
 import com.hungcqa23.notification.exception.AppException;
 import com.hungcqa23.notification.exception.ErrorCode;
-import com.hungcqa23.notification.repository.httpclient.EmailClient;
+import com.hungcqa23.notification.repositories.httpclient.EmailClient;
 import feign.FeignException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
