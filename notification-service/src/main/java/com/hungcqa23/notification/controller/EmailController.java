@@ -9,10 +9,13 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,19 +43,24 @@ public class EmailController {
     }
 
     @KafkaListener(topics = "onboard-successful")
-    public void listen(String message) {
-        log.info("Message received: {}", message);
+    public void listen(ConsumerRecord<String, Object> record) {
+        String key = record.key(); // Kafka message key
+        Object message = record.value(); // Kafka message payload
         
-        // Extract the business key from the message (e.g., timestamp + accountId)
-        String messageId = extractMessageId(message);
+        System.out.println("Message received: " + message);
+        System.out.println("Key received: " + key);
+        
         
         // Check if the message was already processed
-        if (idempotencyService.isMessageProcessed(messageId)) {
-            log.info("Message with id {} has already been processed, skipping.", messageId);
-            return; // Skip processing this message
-        }
+         if (idempotencyService.isMessageProcessed(key)) {
+             log.info("Message with id {} has already been processed, skipping.", key);
+             return;
+         }
         
         // Mark the message as processed
-        idempotencyService.markMessageAsProcessed(messageId);
+         idempotencyService.markMessageAsProcessed(key);
+        
+        // Cast message to Map and access "username" if available
+        System.out.println("Sending email to user.... Done!");
     }
 }

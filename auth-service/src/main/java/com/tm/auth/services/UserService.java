@@ -3,6 +3,8 @@ package com.tm.auth.services;
 import java.util.HashSet;
 import java.util.List;
 
+import com.tm.auth.entities.OutboxEvent;
+import com.tm.auth.repositories.OutboxEventRepository;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,9 +35,10 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
+    OutboxEventRepository outboxEventRepository;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
-    KafkaTemplate<String, String> kafkaTemplate;
+
 
     public UserResponse createUser(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) throw new AppException(ErrorCode.USER_EXISTED);
@@ -52,13 +55,19 @@ public class UserService {
         // Create timestamp (current time in this example)
         String timestamp = String.valueOf(System.currentTimeMillis());
         
-        // Use the username or userId as the accountId
-        String username = user.getUsername();
-        
         // Create the unique message key
-        String messageKey = timestamp + "-" + username;
-        // Publish message to kafka
-        kafkaTemplate.send("onboard-successful", messageKey);
+        String messageId = timestamp + "-" + user.getId();
+        
+        // Create the message payload
+        String messagePayload = "{\"userId\": \"" + user.getId() + "\", \"username\": \"" + user.getUsername() + "\"}";
+        
+        // Save the message to the outbox
+        OutboxEvent outboxEvent = new OutboxEvent();
+        outboxEvent.setMessageId(messageId);
+        outboxEvent.setEventType("onboard-successful");
+        outboxEvent.setPayload(messagePayload);
+        outboxEvent.setStatus("PENDING");
+        outboxEventRepository.save(outboxEvent);
 
         return userMapper.toUserResponse(user);
     }
