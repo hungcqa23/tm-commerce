@@ -1,4 +1,4 @@
-package com.devteria.notification.configuration;
+package com.hungcqa23.notification.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

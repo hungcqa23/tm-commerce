@@ -1,7 +1,7 @@
-package com.devteria.notification.repository.httpclient;
+package com.hungcqa23.notification.repository.httpclient;
 
-import com.devteria.notification.dto.request.EmailRequest;
-import com.devteria.notification.dto.response.EmailResponse;
+import com.hungcqa23.notification.dto.request.EmailRequest;
+import com.hungcqa23.notification.dto.response.EmailResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;

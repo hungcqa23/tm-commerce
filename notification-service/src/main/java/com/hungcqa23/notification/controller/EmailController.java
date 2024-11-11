@@ -1,9 +1,9 @@
-package com.devteria.notification.controller;
+package com.hungcqa23.notification.controller;
 
-import com.devteria.notification.dto.ApiResponse;
-import com.devteria.notification.dto.request.SendEmailRequest;
-import com.devteria.notification.dto.response.EmailResponse;
-import com.devteria.notification.service.EmailService;
+import com.hungcqa23.notification.dto.ApiResponse;
+import com.hungcqa23.notification.dto.request.SendEmailRequest;
+import com.hungcqa23.notification.dto.response.EmailResponse;
+import com.hungcqa23.notification.service.EmailService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

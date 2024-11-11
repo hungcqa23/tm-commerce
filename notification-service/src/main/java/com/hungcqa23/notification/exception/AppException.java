@@ -1,4 +1,4 @@
-package com.devteria.notification.exception;
+package com.hungcqa23.notification.exception;
 
 public class AppException extends RuntimeException {
 
